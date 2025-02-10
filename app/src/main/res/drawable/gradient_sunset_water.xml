@@ -1,0 +1,22 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Water Layer (Bottom Part) -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#00416A"
+            android:endColor="#E4E5E6"
+            android:angle="180" />
+        </shape>
+    </item>
+
+    <!-- Sunset Gradient Overlay -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#FF5E62"
+            android:centerColor="#FC466B"
+            android:endColor="#3A1C71"
+            android:angle="270" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,62 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/gradient_background_card"
+    android:layout_marginBottom="12dp">
+
+    <!-- Video Title -->
+    <TextView
+        android:id="@+id/videoTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Video Title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="6dp"
+        android:textColor="@color/white" />
+
+    <!-- Video Message -->
+    <TextView
+        android:id="@+id/videoMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Click Load to find the best videos."
+        android:textSize="16sp"
+        android:paddingBottom="6dp"
+        android:textColor="@color/light_gray" />
+
+    <!-- WebView for YouTube Video -->
+    <WebView
+        android:id="@+id/youtubeWebView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="gone"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Load Button -->
+    <Button
+        android:id="@+id/loadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load Video"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_rounded"
+        android:textColor="@color/white"
+        android:padding="8dp"
+        android:visibility="visible" />
+
+    <!-- Next Button -->
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_rounded_secondary"
+        android:textColor="@color/white"
+        android:padding="8dp"
+        android:visibility="gone" />
+</LinearLayout>

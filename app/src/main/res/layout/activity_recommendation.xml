@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/gradient_background_recommendation"
+    android:padding="16dp">
+
+    <!-- Heading for Relaxio Index -->
+    <TextView
+        android:id="@+id/headingRelaxioIndex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Relaxiofast Index"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="12dp"
+        android:textColor="@android:color/white" />
+
+    <!-- Custom Ring View -->
+    <FrameLayout
+        android:id="@+id/progressRingContainer"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp">
+
+        <!-- Ring Progress Bar -->
+        <com.relaxio.fast.android.StressRingView
+            android:id="@+id/stressRingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/button_rounded_secondary" />
+
+        <!-- Centered Relaxation Level -->
+        <TextView
+            android:id="@+id/stressScoreText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="RelaxioFast Index"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/white" />
+    </FrameLayout>
+
+    <!-- New Prompt TextView -->
+    <TextView
+        android:id="@+id/relaxioPrompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Discover handpicked videos to help you relax, recharge, and find your calm. Click 'Load Video' and start your journey."
+        android:textSize="18sp"
+        android:textColor="@color/light_gray"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:textAlignment="center" />
+
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:padding="12dp"
+        android:textSize="18sp"
+        android:background="@drawable/button_rounded_secondary"
+        android:textColor="@color/white"
+        android:layout_gravity="start" />
+
+    <!-- Scrollable Recommendation Section -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/recommendationsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp" />
+    </ScrollView>
+
+</LinearLayout>

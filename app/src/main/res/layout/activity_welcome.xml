@@ -1,0 +1,107 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/gradient_background_welcome"
+    android:padding="16dp">
+
+    <!-- Header Section with Properly Aligned Logo and App Name -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:id="@+id/logoImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/relaxiofast_logo"
+            android:contentDescription="App Logo"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/appNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/app_name"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_vertical" />
+    </LinearLayout>
+
+    <!-- Animation Section with Rounded Corners -->
+    <FrameLayout
+        android:id="@+id/animationContainer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/rounded_background"
+        android:elevation="4dp"
+        android:clipToOutline="true" />
+
+    <!-- Motivational Message with Two TextViews for Color Differentiation -->
+    <TextView
+        android:id="@+id/motivationHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_message1"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:paddingBottom="4dp" />
+
+    <TextView
+        android:id="@+id/motivationSubText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_message2"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#ADD8E6"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:paddingBottom="16dp" />
+
+    <!-- Begin Test Button -->
+    <Button
+        android:id="@+id/takeTestButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Begin"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button_rounded"
+        android:textColor="@color/white"
+        android:padding="12dp" />
+
+    <!-- Clear History Button with Full Width -->
+    <Button
+        android:id="@+id/clearHistoryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clear History"
+        android:background="@drawable/button_rounded_secondary"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Scroll View for History -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:id="@+id/historyContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+</LinearLayout>
