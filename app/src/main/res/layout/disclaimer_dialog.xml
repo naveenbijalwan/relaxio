@@ -1,0 +1,40 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/dialog_background">
+
+    <!-- Disclaimer Text -->
+    <TextView
+        android:id="@+id/disclaimerMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Relaxiofast is designed to help you refocus, relax, and boost productivity.
+        This app does not provide medical advice or treatment. For any medical concerns, consult a qualified professional."
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:paddingBottom="12dp" />
+
+    <!-- Agree Button -->
+    <Button
+        android:id="@+id/agreeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="I Agree"
+        android:background="@drawable/button_rounded_secondary"
+        android:textColor="@android:color/white"
+        android:padding="8dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Close Button -->
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:background="@drawable/button_rounded_secondary"
+        android:textColor="@android:color/white"
+        android:padding="8dp" />
+</LinearLayout>

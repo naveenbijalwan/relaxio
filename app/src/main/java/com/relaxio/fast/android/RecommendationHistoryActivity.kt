@@ -1,6 +1,5 @@
 package com.relaxio.fast.android
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +13,7 @@ class RecommendationHistoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecommendationBinding
     private var savedVideoLinks: Map<String, List<String>> = emptyMap()
+    private lateinit var UTUURL: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +21,7 @@ class RecommendationHistoryActivity : AppCompatActivity() {
         binding = ActivityRecommendationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        UTUURL = getString(R.string.utubeurl)
 
         // Retrieve video links from intent
         val savedVideoLinksJson = intent.getStringExtra("savedVideoLinks")
@@ -93,7 +94,7 @@ class RecommendationHistoryActivity : AppCompatActivity() {
 
     private fun loadVideo(cardBinding: VideoCardBinding, videoLink: String) {
         val videoId = extractVideoId(videoLink)
-        val videoUrl = "https://www.youtube.com/embed/$videoId"
+        val videoUrl = "$UTUURL$videoId"
         cardBinding.youtubeWebView.settings.javaScriptEnabled = true
         cardBinding.youtubeWebView.loadUrl(videoUrl)
     }

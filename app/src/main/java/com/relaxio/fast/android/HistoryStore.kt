@@ -27,6 +27,7 @@ class HistoryStore(context: Context) {
         return gson.fromJson(json, object : TypeToken<List<RecommendationHistory>>() {}.type) ?: listOf()
     }
     fun clearHistory() {
+        prefs.edit().remove("history").apply()  // Deletes all saved history permanently
         prefs.edit().clear().apply() // ✅ Clear all saved history
     }
 }

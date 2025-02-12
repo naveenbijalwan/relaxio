@@ -1,10 +1,15 @@
 package com.relaxio.fast.android
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.relaxio.fast.android.databinding.ActivityWelcomeBinding
@@ -12,16 +17,36 @@ import com.relaxio.fast.android.databinding.HistoryCardBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+
 class WelcomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWelcomeBinding
     private lateinit var historyStore: HistoryStore
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        sharedPreferences = getSharedPreferences("RelaxioAppPrefs", Context.MODE_PRIVATE)
+
+        // Initially hide the Begin button
+        binding.takeTestButton.visibility = View.GONE
+
+        // Check if user has accepted disclaimer
+        if (!isDisclaimerAccepted()) {
+            showDisclaimerDialog()
+        } else {
+            binding.takeTestButton.visibility = View.VISIBLE  // Show Begin button if accepted
+        }
+
+        val shieldIcon: ImageView = findViewById(R.id.shieldIcon)
+
+        // Show Disclaimer Dialog on Icon Click
+        shieldIcon.setOnClickListener {
+            showDisclaimerDialog()
+        }
         // Add the animation section
         binding.animationContainer.addView(UltimateDynamicPatternView(this))
 
@@ -43,6 +68,44 @@ class WelcomeActivity : AppCompatActivity() {
         }
 
         displayHistory()
+    }
+
+    private fun showDisclaimerDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.disclaimer_dialog, null)
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+        dialog.show()
+
+        val agreeButton: Button = dialogView.findViewById(R.id.agreeButton)
+        val closeButton: Button = dialogView.findViewById(R.id.closeButton)
+
+        agreeButton.setOnClickListener {
+            saveDisclaimerConsent() // Store user consent
+            binding.takeTestButton.visibility = View.VISIBLE  // Show Begin button
+            dialog.dismiss()
+        }
+
+        closeButton.setOnClickListener {
+            if (!isDisclaimerAccepted()) {
+                finish() // Close the app if user does not agree
+            }
+            else{
+                dialog.dismiss() // Close the dialog without exiting the app
+            }
+        }
+    }
+
+    private fun isDisclaimerAccepted(): Boolean {
+        return sharedPreferences.getBoolean("disclaimerAccepted", false)
+    }
+
+    private fun saveDisclaimerConsent() {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("disclaimerAccepted", true)
+        editor.apply()
     }
 
     override fun onResume() {

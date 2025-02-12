@@ -5,6 +5,22 @@
     android:background="@drawable/gradient_background_recommendation"
     android:padding="16dp">
 
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:text="Back"
+        android:textSize="18sp"
+        android:padding="16dp"
+        android:background="@drawable/gradient_background_recommendation"
+        android:textColor="@color/white"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp" />
+
     <!-- Heading for Relaxio Index -->
     <TextView
         android:id="@+id/headingRelaxioIndex"
@@ -58,18 +74,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
         android:textAlignment="center" />
-
-    <!-- Back Button -->
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        android:padding="12dp"
-        android:textSize="18sp"
-        android:background="@drawable/button_rounded_secondary"
-        android:textColor="@color/white"
-        android:layout_gravity="start" />
 
     <!-- Scrollable Recommendation Section -->
     <ScrollView

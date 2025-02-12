@@ -26,9 +26,11 @@ class RecommendationActivity : AppCompatActivity() {
     private val recommendedTopics = mutableListOf<String>()
     private lateinit var historyStore: HistoryStore
     private var stressScore: Int = 0
+    private lateinit var UTUURL: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        UTUURL = getString(R.string.utubeurl)
 
         // Set up View Binding
         binding = ActivityRecommendationBinding.inflate(layoutInflater)
@@ -154,7 +156,7 @@ class RecommendationActivity : AppCompatActivity() {
 
     private fun loadVideo(cardBinding: VideoCardBinding, videoLink: String) {
         val videoId = extractVideoId(videoLink)
-        val videoUrl = "https://www.youtube.com/embed/$videoId"
+        val videoUrl = "$UTUURL$videoId"
         cardBinding.youtubeWebView.settings.javaScriptEnabled = true
         cardBinding.youtubeWebView.loadUrl(videoUrl)
     }

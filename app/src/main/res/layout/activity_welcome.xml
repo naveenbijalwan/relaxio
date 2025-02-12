@@ -6,6 +6,18 @@
     android:background="@drawable/gradient_background_welcome"
     android:padding="16dp">
 
+    <!-- Disclaimer Text at Top-Right -->
+    <!-- Info Icon (Top Right) -->
+    <ImageView
+        android:id="@+id/shieldIcon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/info_icon"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:contentDescription="Disclaimer Icon" />
+
     <!-- Header Section with Properly Aligned Logo and App Name -->
     <LinearLayout
         android:layout_width="match_parent"

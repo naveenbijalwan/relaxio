@@ -5,11 +5,16 @@ import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.*
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.ScrollView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.random.Random
 
@@ -25,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var questionSection: LinearLayout
     private lateinit var answerSection: ScrollView
+    private lateinit var UTUURL: String
 
     private var questionsList: List<VideoDataStoreSerializable.QuestionData> = listOf()
     private val userResponses = mutableMapOf<String, MutableMap<String, Float>>()
@@ -34,6 +40,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val backButton: Button = findViewById(R.id.backButton)
+        backButton.setOnClickListener { v -> onBackPressed() }
+        backButton.visibility = View.VISIBLE
 
         // Initialize views
         questionTextView = findViewById(R.id.questionTextView)
@@ -45,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         confettiContainer = findViewById(R.id.confettiContainer)
         questionSection = findViewById(R.id.questionSection)
         answerSection = findViewById(R.id.answerSection)
+        UTUURL = getString(R.string.utubeurl)
 
         // Initialize background music
         /*mediaPlayer = MediaPlayer.create(this, R.raw.gentle_music)
@@ -93,15 +104,16 @@ class MainActivity : AppCompatActivity() {
                 setOnClickListener {
                     storeUserResponse(option.scores)
                     triggerConfettiEffect()  // Trigger confetti effect
-                    playRandomVideoBeforeNextQuestion()  // Play video before proceeding
+                    playRandomVideoBeforeNextQuestion(option.scores)  // Play video before proceeding
                 }
             }
             answerOptions.addView(radioButton)
         }
     }
 
-    private fun playRandomVideoBeforeNextQuestion() {
-        val randomVideoUrl = VideoDataStore.videoData.random().first
+    private fun playRandomVideoBeforeNextQuestion(scores: Map<String, Float>) {
+        val closestVideoUrl = findClosestVideo(scores)
+        val randomVideoUrl = closestVideoUrl //VideoDataStore.videoData.random().first
 
         skipButton.visibility = View.GONE
         questionSection.visibility = View.GONE
@@ -117,7 +129,32 @@ class MainActivity : AppCompatActivity() {
 
         nextButton.visibility = View.VISIBLE
         youtubeWebView.visibility = View.VISIBLE
-        youtubeWebView.loadUrl(randomVideoUrl)
+        val videoId = randomVideoUrl.substringAfterLast("/")
+        val videoUrl = "$UTUURL$videoId"
+        youtubeWebView.loadUrl(videoUrl)
+    }
+
+    private fun findClosestVideo(userParams: Map<String, Float>): String {
+        val videoData = VideoDataStore.videoData
+
+        var minDistance = Double.MAX_VALUE
+        var closestVideoUrl = ""
+
+        for (video in videoData) {
+            var distance = 0.0
+
+            for ((param, userValue) in userParams) {
+                    val videoValue = video.fourth[param] ?: 0.0
+                    distance += (userValue.toFloat() - videoValue.toFloat()) * (userValue.toFloat() - videoValue.toFloat())
+            }
+
+            if (distance < minDistance) {
+                minDistance = distance
+                closestVideoUrl = video.first
+            }
+        }
+
+        return closestVideoUrl
     }
 
     private fun triggerConfettiEffect() {

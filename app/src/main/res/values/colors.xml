@@ -15,4 +15,5 @@
     <color name="needs_improvement">#F44336</color> <!-- Red -->
     <color name="light_gray">#B0BEC5</color>
     <color name="logo_color">#800080</color>
+    <color name="button_bg_color">#FF4081</color>
 </resources>
