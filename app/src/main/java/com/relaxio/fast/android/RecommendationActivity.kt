@@ -49,7 +49,7 @@ class RecommendationActivity : AppCompatActivity() {
 
         // Update Relaxio Index view
         binding.stressRingView.setProgress(relaxationLevel)
-        binding.stressScoreText.text = "$relaxationLevel\n${getRelaxationMessage(stressScore)}"
+        binding.stressScoreText.text = "$relaxationLevel\n${getRelaxationMessage(relaxationLevel)}"
 
         // Get topics and add recommendation cards
         val tags = VideoDataStore.getTopics()

@@ -3,9 +3,10 @@ package com.relaxio.fast.android
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Color
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
@@ -27,10 +28,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var skipButton: Button
     private lateinit var youtubeWebView: WebView
     private lateinit var confettiContainer: FrameLayout
-    private lateinit var mediaPlayer: MediaPlayer
     private lateinit var questionSection: LinearLayout
     private lateinit var answerSection: ScrollView
     private lateinit var UTUURL: String
+    private lateinit var noVideo: FrameLayout
 
     private var questionsList: List<VideoDataStoreSerializable.QuestionData> = listOf()
     private val userResponses = mutableMapOf<String, MutableMap<String, Float>>()
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         confettiContainer = findViewById(R.id.confettiContainer)
         questionSection = findViewById(R.id.questionSection)
         answerSection = findViewById(R.id.answerSection)
+        noVideo = findViewById(R.id.animationContainer2)
         UTUURL = getString(R.string.utubeurl)
 
         // Initialize background music
@@ -88,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         askedQuestions.add(nextQuestion.question)
         questionTextView.text = nextQuestion.question
         questionTextView.textSize = 28f
+        noVideo.visibility = View.GONE
 
         skipButton.visibility = View.VISIBLE
         nextButton.visibility = View.GONE
@@ -120,10 +123,24 @@ class MainActivity : AppCompatActivity() {
         answerSection.visibility = View.GONE
 
         youtubeWebView.settings.javaScriptEnabled = true
+
         youtubeWebView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
-                skipButton.visibility = View.GONE  // Hide skip button when video is playing
-                nextButton.visibility = View.VISIBLE  // Show continue button when video ends
+                youtubeWebView.evaluateJavascript(
+                    """
+            (function() { 
+                var errorElement = document.querySelector('.ytp-error-content-wrap-reason span');
+                return errorElement ? errorElement.innerText : "";
+            })();
+            """
+                ) { result ->
+                    if (result.contains("Video unavailable", ignoreCase = true)) {
+                        showNoVideoMessage()
+                    } else {
+                        skipButton.visibility = View.GONE
+                        nextButton.visibility = View.VISIBLE
+                    }
+                }
             }
         }
 
@@ -132,6 +149,20 @@ class MainActivity : AppCompatActivity() {
         val videoId = randomVideoUrl.substringAfterLast("/")
         val videoUrl = "$UTUURL$videoId"
         youtubeWebView.loadUrl(videoUrl)
+    }
+
+    private fun showNoVideoMessage() {
+        // Clear any old patterns before generating a new one
+        noVideo.removeAllViews()
+
+        // Dynamically add a fresh UltimateDynamicPatternView
+        val patternView = UltimateDynamicPatternView(this)
+        patternView.generateNewPatterns()  // Ensure new patterns are generated
+        noVideo.addView(patternView)
+
+        youtubeWebView.visibility = View.GONE
+        noVideo.visibility = View.VISIBLE
+        nextButton.visibility = View.VISIBLE
     }
 
     private fun findClosestVideo(userParams: Map<String, Float>): String {
@@ -144,8 +175,8 @@ class MainActivity : AppCompatActivity() {
             var distance = 0.0
 
             for ((param, userValue) in userParams) {
-                    val videoValue = video.fourth[param] ?: 0.0
-                    distance += (userValue.toFloat() - videoValue.toFloat()) * (userValue.toFloat() - videoValue.toFloat())
+                val videoValue = video.fourth[param] ?: 0.0
+                distance += (userValue.toFloat() - videoValue.toFloat()) * (userValue.toFloat() - videoValue.toFloat())
             }
 
             if (distance < minDistance) {

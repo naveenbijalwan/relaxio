@@ -151,7 +151,7 @@ class WelcomeActivity : AppCompatActivity() {
         }
         // Display the saved stress score on the card
         cardBinding.historyTitle.text =  "Mood Booster • $relativeTime"
-        cardBinding.historyStressScore.text = "Relaxio Index: ${100 - record.stressScore}"
+        cardBinding.historyStressScore.text = "Relaxiofast Index: ${100 - record.stressScore}"
 
         // View details button to launch RecommendationHistoryActivity
         cardBinding.viewHistoryButton.setOnClickListener {

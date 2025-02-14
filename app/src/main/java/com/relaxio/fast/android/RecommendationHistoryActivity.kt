@@ -34,7 +34,7 @@ class RecommendationHistoryActivity : AppCompatActivity() {
 
         // Update Relaxio Index view
         binding.stressRingView.setProgress(relaxationLevel)
-        binding.stressScoreText.text = "$relaxationLevel\n${getRelaxationMessage(stressScore)}"
+        binding.stressScoreText.text = "$relaxationLevel\n${getRelaxationMessage(relaxationLevel)}"
 
         // Populate video cards from saved video links
         savedVideoLinks.forEach { (topic, videoLinks) ->
